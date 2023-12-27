@@ -20,7 +20,7 @@ public class ImplementerServiceImpl implements ImplementerService {
     }
 
     @Override
-    public List<ImplementerDto> findAllImplementer() {
+    public List<ImplementerDto> findAllImplementers() {
         List<Implementer> listImplementer = implementerRepository.findAll();
         return listImplementer.stream().map(this::mapToImplementerDto).collect(Collectors.toList());
     }
