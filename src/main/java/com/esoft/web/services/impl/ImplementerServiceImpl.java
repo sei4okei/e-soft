@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +24,34 @@ public class ImplementerServiceImpl implements ImplementerService {
     public List<ImplementerDto> findAllImplementers() {
         List<Implementer> listImplementer = implementerRepository.findAll();
         return listImplementer.stream().map(this::mapToImplementerDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Implementer saveImplementer(Implementer implementer) {
+        return implementerRepository.save(implementer);
+    }
+
+    @Override
+    public ImplementerDto findImplementerById(long id) {
+        Implementer implementer = implementerRepository.findById(id).get();
+        return mapToImplementerDto(implementer);
+    }
+
+    @Override
+    public void updateImplementer(ImplementerDto implementerDto) {
+        Implementer implementer = mapToImplementer(implementerDto);
+        implementerRepository.save(implementer);
+    }
+
+    private Implementer mapToImplementer(ImplementerDto implementerDto) {
+        Implementer implementer = Implementer.builder()
+                .id(implementerDto.getId())
+                .firstName(implementerDto.getFirstName())
+                .grade(implementerDto.getGrade())
+                .lastName(implementerDto.getLastName())
+                .patronymic(implementerDto.getPatronymic())
+                .build();
+        return  implementer;
     }
 
     private ImplementerDto mapToImplementerDto(Implementer implementer) {
