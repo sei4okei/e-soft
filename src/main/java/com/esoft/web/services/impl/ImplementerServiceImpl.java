@@ -27,7 +27,8 @@ public class ImplementerServiceImpl implements ImplementerService {
     }
 
     @Override
-    public Implementer saveImplementer(Implementer implementer) {
+    public Implementer saveImplementer(ImplementerDto implementerDto) {
+        Implementer implementer = mapToImplementer(implementerDto);
         return implementerRepository.save(implementer);
     }
 

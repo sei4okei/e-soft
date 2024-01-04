@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ImplementerService {
     List<ImplementerDto> findAllImplementers();
-    Implementer saveImplementer(Implementer implementer);
+    Implementer saveImplementer(ImplementerDto implementerDto);
     ImplementerDto findImplementerById(long id);
     void updateImplementer(ImplementerDto implementerDto);
     void deleteImplementerById(long implementerId);

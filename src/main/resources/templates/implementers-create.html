@@ -14,10 +14,12 @@
           <div class="form-group col-md-6">
             <label for="firstName">First Name</label>
             <input type="text" class="form-control" id="firstName" placeholder="Alexandrov" th:field="*{firstName}" name="firstName">
+            <p th:if="${#fields.hasErrors('firstName')}" class="text-danger" th:errors="*{firstName}"></p>
           </div>
           <div class="form-group col-md-6">
             <label for="lastName">Last Name</label>
             <input type="text" class="form-control" id="lastName" placeholder="Alex" th:field="*{lastName}" name="lastName">
+            <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
           </div>
         </div>
         <div class="form-group">
@@ -27,6 +29,7 @@
         <div class="form-group mb-3">
           <label for="grade">Grade</label>
           <input type="text" class="form-control" id="grade" placeholder="Junior" th:field="*{grade}" name="grade">
+          <p th:if="${#fields.hasErrors('grade')}" class="text-danger" th:errors="*{grade}"></p>
         </div>
         <button type="submit" class="btn btn-primary">Create Implementer</button>
       </form>

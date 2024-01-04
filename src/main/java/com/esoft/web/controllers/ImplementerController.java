@@ -3,9 +3,11 @@ package com.esoft.web.controllers;
 import com.esoft.web.dto.ImplementerDto;
 import com.esoft.web.models.Implementer;
 import com.esoft.web.services.ImplementerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +35,14 @@ public class ImplementerController {
     }
 
     @PostMapping("implementer/new")
-    public String saveImplementer(@ModelAttribute("implementer") Implementer implementer) {
-        implementerService.saveImplementer(implementer);
+    public String saveImplementer(@Valid @ModelAttribute("implementer") ImplementerDto implementerDto,
+                                  BindingResult result,
+                                  Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("implementer", implementerDto);
+            return "implementers-create";
+        }
+        implementerService.saveImplementer(implementerDto);
         return "redirect:/implementer";
     }
 
@@ -46,7 +54,12 @@ public class ImplementerController {
     }
 
     @PostMapping("implementer/{implementerId}/edit")
-    public String updateImplmenter(@PathVariable("implementerId") long implementerId, @ModelAttribute("implementer") ImplementerDto implementer) {
+    public String updateImplmenter(@PathVariable("implementerId") long implementerId,
+                                   @Valid @ModelAttribute("implementer") ImplementerDto implementer,
+                                   BindingResult result) {
+        if (result.hasErrors()) {
+            return "implementers-edit";
+        }
         implementer.setId(implementerId);
         implementerService.updateImplementer(implementer);
         return "redirect:/implementer";
