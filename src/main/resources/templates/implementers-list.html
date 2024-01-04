@@ -21,7 +21,12 @@
                         <p th:text="${implementer.grade}" class="text-black-50"></p>
                     </div>
                     <a class="btn btn-primary" th:href="@{/implementer/{implementerId}/edit(implementerId = ${implementer.id})}">Edit</a>
-                    <a class="btn btn-danger" th:href="@{/implementer/{implementerId}/delete(implementerId = ${implementer.id})}">Delete</a>
+                    <form role="form"
+                          method="post"
+                          th:action="@{/implementer/{implementerId}/delete(implementerId = ${implementer.id})}"
+                    >
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>

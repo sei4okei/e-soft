@@ -51,4 +51,10 @@ public class ImplementerController {
         implementerService.updateImplementer(implementer);
         return "redirect:/implementer";
     }
+
+    @PostMapping("implementer/{implementerId}/delete")
+    public String deleteImplementer(@PathVariable("implementerId") long implementerId) {
+        implementerService.deleteImplementerById(implementerId);
+        return "redirect:/implementer";
+    }
 }

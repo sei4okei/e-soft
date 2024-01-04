@@ -43,6 +43,11 @@ public class ImplementerServiceImpl implements ImplementerService {
         implementerRepository.save(implementer);
     }
 
+    @Override
+    public void deleteImplementerById(long implementerId) {
+        implementerRepository.deleteById(implementerId);
+    }
+
     private Implementer mapToImplementer(ImplementerDto implementerDto) {
         Implementer implementer = Implementer.builder()
                 .id(implementerDto.getId())

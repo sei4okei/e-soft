@@ -10,6 +10,6 @@ public interface ImplementerService {
     List<ImplementerDto> findAllImplementers();
     Implementer saveImplementer(Implementer implementer);
     ImplementerDto findImplementerById(long id);
-
     void updateImplementer(ImplementerDto implementerDto);
+    void deleteImplementerById(long implementerId);
 }
