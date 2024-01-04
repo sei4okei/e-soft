@@ -27,6 +27,22 @@ public class ImplementerController {
         return "implementers-list";
     }
 
+    @GetMapping("/implementer/{implementerId}")
+    public String implmenterDetail(@PathVariable("implementerId") long implementerId,
+                                       Model model) {
+        ImplementerDto implementer= implementerService.findImplementerById(implementerId);
+        model.addAttribute("implementer", implementer);
+        return "implementers-detail";
+    }
+
+    @GetMapping("/implementer/search")
+    public String searchImplementer(@RequestParam(value = "query") String query,
+                                    Model model) {
+        List<ImplementerDto> implementers = implementerService.searchImplementers(query);
+        model.addAttribute("implementers", implementers);
+        return "implementers-list";
+    }
+
     @GetMapping("implementer/new")
     public String createImplementerForm(Model model) {
         Implementer implemeneter = new Implementer();

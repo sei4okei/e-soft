@@ -12,4 +12,5 @@ public interface ImplementerService {
     ImplementerDto findImplementerById(long id);
     void updateImplementer(ImplementerDto implementerDto);
     void deleteImplementerById(long implementerId);
+    List<ImplementerDto> searchImplementers(String query);
 }

@@ -49,6 +49,12 @@ public class ImplementerServiceImpl implements ImplementerService {
         implementerRepository.deleteById(implementerId);
     }
 
+    @Override
+    public List<ImplementerDto> searchImplementers(String query) {
+        List<Implementer> implementers = implementerRepository.searchImplementers(query);
+        return implementers.stream().map(this::mapToImplementerDto).collect(Collectors.toList());
+    }
+
     private Implementer mapToImplementer(ImplementerDto implementerDto) {
         Implementer implementer = Implementer.builder()
                 .id(implementerDto.getId())
