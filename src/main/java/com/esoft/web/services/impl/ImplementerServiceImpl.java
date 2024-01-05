@@ -62,6 +62,7 @@ public class ImplementerServiceImpl implements ImplementerService {
                 .grade(implementerDto.getGrade())
                 .lastName(implementerDto.getLastName())
                 .patronymic(implementerDto.getPatronymic())
+                .tasks(implementerDto.getTasks())
                 .build();
         return  implementer;
     }
@@ -73,6 +74,7 @@ public class ImplementerServiceImpl implements ImplementerService {
                 .grade(implementer.getGrade())
                 .lastName(implementer.getLastName())
                 .patronymic(implementer.getPatronymic())
+                .tasks(implementer.getTasks())
                 .build();
         return  implementerDto;
     }

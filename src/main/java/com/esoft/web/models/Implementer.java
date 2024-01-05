@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.thymeleaf.spring6.processor.SpringOptionFieldTagProcessor;
+
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,5 +24,7 @@ public class Implementer {
     private String lastName;
     private String patronymic;
     private String grade;
-    //private List<Task> Tasks;
+
+    @OneToMany(mappedBy = "implementer", cascade = CascadeType.REMOVE)
+    private Set<Task> tasks = new HashSet<>();
 }

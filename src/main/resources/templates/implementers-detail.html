@@ -26,6 +26,7 @@
                 >
                     <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
+                <a class="btn btn-primary" th:href="@{/task/{implementerId}/new(implementerId = ${implementer.id})}">Add Task</a>
             </div>
         </div>
     </section>
