@@ -1,6 +1,7 @@
 package com.esoft.web.services.impl;
 
 import com.esoft.web.dto.TaskDto;
+import com.esoft.web.mapper.TaskMapper;
 import com.esoft.web.models.Implementer;
 import com.esoft.web.models.Task;
 import com.esoft.web.repository.ImplementerRepository;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.esoft.web.mapper.TaskMapper.mapToTask;
+
 @Service
 public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
@@ -25,7 +29,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDto> findAllTasks() {
         List<Task> tasks = taskRepository.findAll();
-        return tasks.stream().map(this::mapToTaskDto).collect(Collectors.toList());
+        return tasks.stream().map(TaskMapper::mapToTaskDto).collect(Collectors.toList());
     }
 
     @Override
@@ -34,33 +38,5 @@ public class TaskServiceImpl implements TaskService {
         Implementer implementer = implementerRepository.findById(implementerId).get();
         task.setImplementer(implementer);
         taskRepository.save(task);
-    }
-
-    private TaskDto mapToTaskDto(Task task) {
-        TaskDto taskDto = TaskDto.builder()
-                .id(task.getId())
-                .name(task.getName())
-                .complexity(task.getComplexity())
-                .createdOn(task.getCreatedOn())
-                .deadline(task.getDeadline())
-                .description(task.getDescription())
-                .runtime(task.getRuntime())
-                .type(task.getType())
-                .build();
-        return taskDto;
-    }
-
-    private Task mapToTask(TaskDto taskDto) {
-        Task task = Task.builder()
-                .id(taskDto.getId())
-                .name(taskDto.getName())
-                .complexity(taskDto.getComplexity())
-                .createdOn(taskDto.getCreatedOn())
-                .deadline(taskDto.getDeadline())
-                .description(taskDto.getDescription())
-                .runtime(taskDto.getRuntime())
-                .type(taskDto.getType())
-                .build();
-        return task;
     }
 }

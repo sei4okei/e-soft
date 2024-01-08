@@ -1,6 +1,7 @@
 package com.esoft.web.services.impl;
 
 import com.esoft.web.dto.ImplementerDto;
+import com.esoft.web.mapper.ImplementerMapper;
 import com.esoft.web.models.Implementer;
 import com.esoft.web.repository.ImplementerRepository;
 import com.esoft.web.services.ImplementerService;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.esoft.web.mapper.ImplementerMapper.mapToImplementer;
+import static com.esoft.web.mapper.ImplementerMapper.mapToImplementerDto;
 
 @Service
 public class ImplementerServiceImpl implements ImplementerService {
@@ -23,7 +27,7 @@ public class ImplementerServiceImpl implements ImplementerService {
     @Override
     public List<ImplementerDto> findAllImplementers() {
         List<Implementer> listImplementer = implementerRepository.findAll();
-        return listImplementer.stream().map(this::mapToImplementerDto).collect(Collectors.toList());
+        return listImplementer.stream().map(ImplementerMapper::mapToImplementerDto).collect(Collectors.toList());
     }
 
     @Override
@@ -52,30 +56,6 @@ public class ImplementerServiceImpl implements ImplementerService {
     @Override
     public List<ImplementerDto> searchImplementers(String query) {
         List<Implementer> implementers = implementerRepository.searchImplementers(query);
-        return implementers.stream().map(this::mapToImplementerDto).collect(Collectors.toList());
-    }
-
-    private Implementer mapToImplementer(ImplementerDto implementerDto) {
-        Implementer implementer = Implementer.builder()
-                .id(implementerDto.getId())
-                .firstName(implementerDto.getFirstName())
-                .grade(implementerDto.getGrade())
-                .lastName(implementerDto.getLastName())
-                .patronymic(implementerDto.getPatronymic())
-                .tasks(implementerDto.getTasks())
-                .build();
-        return  implementer;
-    }
-
-    private ImplementerDto mapToImplementerDto(Implementer implementer) {
-        ImplementerDto implementerDto = ImplementerDto.builder()
-                .id(implementer.getId())
-                .firstName(implementer.getFirstName())
-                .grade(implementer.getGrade())
-                .lastName(implementer.getLastName())
-                .patronymic(implementer.getPatronymic())
-                .tasks(implementer.getTasks())
-                .build();
-        return  implementerDto;
+        return implementers.stream().map(ImplementerMapper::mapToImplementerDto).collect(Collectors.toList());
     }
 }
