@@ -3,6 +3,8 @@ package com.esoft.web.mapper;
 import com.esoft.web.dto.ImplementerDto;
 import com.esoft.web.models.Implementer;
 
+import java.util.stream.Collectors;
+
 public class ImplementerMapper {
     public static Implementer mapToImplementer(ImplementerDto implementerDto) {
         Implementer implementer = Implementer.builder()
@@ -11,7 +13,7 @@ public class ImplementerMapper {
                 .grade(implementerDto.getGrade())
                 .lastName(implementerDto.getLastName())
                 .patronymic(implementerDto.getPatronymic())
-                .tasks(implementerDto.getTasks())
+                .tasks(implementerDto.getTasks().stream().map(TaskMapper::mapToTask).collect(Collectors.toList()))
                 .build();
         return  implementer;
     }
@@ -23,7 +25,7 @@ public class ImplementerMapper {
                 .grade(implementer.getGrade())
                 .lastName(implementer.getLastName())
                 .patronymic(implementer.getPatronymic())
-                .tasks(implementer.getTasks())
+                .tasks(implementer.getTasks().stream().map(TaskMapper::mapToTaskDto).collect(Collectors.toList()))
                 .build();
         return  implementerDto;
     }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.naming.Binding;
+import java.util.List;
 
 @Controller
 public class TaskController {
@@ -20,6 +21,13 @@ public class TaskController {
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
+    }
+
+    @GetMapping("/task")
+    public String taskList(Model model) {
+        List<TaskDto> tasks = taskService.findAllTasks();
+        model.addAttribute("tasks", tasks);
+        return "tasks-list";
     }
 
     @GetMapping("/task/{implementerId}/new")

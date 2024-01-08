@@ -29,6 +29,19 @@
                 <a class="btn btn-primary" th:href="@{/task/{implementerId}/new(implementerId = ${implementer.id})}">Add Task</a>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div th:each="task :${implementer.tasks}" class="card mb-4">
+                    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..."/></a>
+                    <div class="card-body">
+                        <div class="small text-muted" th:text="${task.deadline}">January 1, 2022</div>
+                        <h2 class="card-title h4" th:text="|${task.name} ${task.complexity}|">Event Title</h2>
+                        <p class="card-text" th:text="${task.description}">Lorem ipsum dolor sit amet, consectetur adipsicing elit.</p>
+                        <a class="btn btn-primary" href="#!" th:text="${task.type}">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </main>
 </body>

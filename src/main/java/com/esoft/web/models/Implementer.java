@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.thymeleaf.spring6.processor.SpringOptionFieldTagProcessor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -26,5 +27,5 @@ public class Implementer {
     private String grade;
 
     @OneToMany(mappedBy = "implementer", cascade = CascadeType.REMOVE)
-    private Set<Task> tasks = new HashSet<>();
+    private List<Task> tasks = new ArrayList<>();
 }

@@ -1,15 +1,10 @@
 package com.esoft.web.dto;
 
-import com.esoft.web.models.Task;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,5 +17,5 @@ public class ImplementerDto {
     private String patronymic;
     @NotEmpty(message = "Implementer grade should not be empty")
     private String grade;
-    private Set<Task> tasks = new HashSet<>();
+    private List<TaskDto> tasks;
 }
