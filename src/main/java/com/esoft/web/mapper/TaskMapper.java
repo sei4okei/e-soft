@@ -14,6 +14,7 @@ public class TaskMapper {
                 .description(task.getDescription())
                 .runtime(task.getRuntime())
                 .type(task.getType())
+                .implementer(task.getImplementer())
                 .build();
         return taskDto;
     }
@@ -28,6 +29,7 @@ public class TaskMapper {
                 .description(taskDto.getDescription())
                 .runtime(taskDto.getRuntime())
                 .type(taskDto.getType())
+                .implementer(taskDto.getImplementer())
                 .build();
         return task;
     }

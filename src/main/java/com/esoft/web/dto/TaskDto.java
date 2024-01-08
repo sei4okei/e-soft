@@ -32,4 +32,5 @@ public class TaskDto {
     @NotNull(message = "Task type should not be empty")
     private TaskType type;
     private LocalDateTime createdOn;
+    private Implementer implementer;
 }

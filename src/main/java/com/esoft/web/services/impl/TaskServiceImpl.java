@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.esoft.web.mapper.TaskMapper.mapToTask;
+import static com.esoft.web.mapper.TaskMapper.mapToTaskDto;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -33,10 +34,33 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void createEvent(Long implementerId, TaskDto taskDto) {
+    public void createTask(Long implementerId, TaskDto taskDto) {
         Task task = mapToTask(taskDto);
         Implementer implementer = implementerRepository.findById(implementerId).get();
         task.setImplementer(implementer);
         taskRepository.save(task);
+    }
+
+    @Override
+    public TaskDto findTaskById(long id) {
+        Task task = taskRepository.findById(id).get();
+        return  mapToTaskDto(task);
+    }
+
+    @Override
+    public void updateTask(TaskDto taskDto) {
+        Task task = mapToTask(taskDto);
+        taskRepository.save(task);
+    }
+
+    @Override
+    public void deleteTaskById(long taskId) {
+        taskRepository.deleteById(taskId);
+    }
+
+    @Override
+    public List<TaskDto> searchTasks(String query) {
+        List<Task> tasks = taskRepository.searchTasks(query);
+        return tasks.stream().map(TaskMapper::mapToTaskDto).collect(Collectors.toList());
     }
 }
