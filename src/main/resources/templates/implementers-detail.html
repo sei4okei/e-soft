@@ -1,0 +1,48 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="|${implementer.firstName} ${implementer.lastName}|"></title>
+</head>
+<body class="d-flex flex-column h-100">
+<main layout:fragment="body" class="flex-shrink-0">
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder" th:text="|Implementer ${implementer.firstName} ${implementer.lastName}|"></h1>
+                <p class="lead fw-normal text-muted mb-0" th:text="${implementer.grade}"></p>
+            </div>
+            <div  class="col-lg-6 mb-2">
+                <div class="position-relative mb-3">
+                    <img class="img-fluid rounded-3 mb-3" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." />
+                    <a th:text="|${implementer.lastName} ${implementer.firstName} ${implementer.patronymic}|" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
+                    <p th:text="${implementer.grade}" class="text-black-50"></p>
+                </div>
+                <a class="btn btn-primary" th:href="@{/implementer/{implementerId}/edit(implementerId = ${implementer.id})}">Edit</a>
+                <form role="form"
+                      method="post"
+                      th:action="@{/implementer/{implementerId}/delete(implementerId = ${implementer.id})}"
+                >
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+                <a class="btn btn-primary" th:href="@{/task/{implementerId}/new(implementerId = ${implementer.id})}">Add Task</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div th:each="task :${implementer.tasks}" class="card mb-4">
+                    <a th:href="@{/task/{taskId}(taskId = ${task.id})}"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..."/></a>
+                    <div class="card-body">
+                        <div class="small text-muted" th:text="${task.deadline}">January 1, 2022</div>
+                        <h2 class="card-title h4" th:text="|${task.name} ${task.complexity}|">Event Title</h2>
+                        <p class="card-text" th:text="${task.description}">Lorem ipsum dolor sit amet, consectetur adipsicing elit.</p>
+                        <a class="btn btn-primary" th:text="${task.type}">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title th:text="|${task.name} ${task.complexity}|"></title>
+</head>
+<body class="d-flex flex-column h-100">
+<main layout:fragment="body" class="flex-shrink-0">
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder" th:text="|Task ${task.name} ${task.complexity}|"></h1>
+                <p class="lead fw-normal text-muted mb-0" th:text="${task.description}"></p>
+            </div>
+            <div  class="col-lg-6 mb-2">
+                <div class="position-relative mb-3">
+                    <img class="img-fluid rounded-3 mb-3" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." />
+                    <a th:text="|${task.name} ${task.complexity}|" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
+                    <p th:text="${task.description}" class="text-black-50 mb-5"></p>
+                    <p th:text="|Time created: ${task.createdOn}|" class="text-black-50 mb-5"></p>
+                    <p th:text="|Implementer: ${task.implementer.firstName} ${task.implementer.lastName}|" class="text-black-50 mb-5"></p>
+                    <p th:text="|Deadline: ${task.deadline}|" class="text-black-50 mb-5"></p>
+                    <p th:text="|Type: ${task.type}|" class="text-black-50 mb-5"></p>
+                </div>
+                <a class="btn btn-primary" th:href="@{/task/{taskId}/edit(taskId = ${task.id})}">Edit</a>
+                <form role="form"
+                      method="post"
+                      th:action="@{/task/{taskId}/delete(taskId = ${task.id})}"
+                >
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

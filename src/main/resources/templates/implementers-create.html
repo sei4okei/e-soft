@@ -1,0 +1,40 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Implementer Create</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main layout:fragment="body" class="flex-shrink-0">
+  <!-- Page Content-->
+  <section class="py-5">
+    <div class="container">
+      <form role="form" method="post" th:action="@{/implementer/new}" th:object="${implementer}">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Alexandrov" th:field="*{firstName}" name="firstName">
+            <p th:if="${#fields.hasErrors('firstName')}" class="text-danger" th:errors="*{firstName}"></p>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Alex" th:field="*{lastName}" name="lastName">
+            <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="patronymic">Patronymic</label>
+          <input type="text" class="form-control" id="patronymic" placeholder="Alexandrovich" th:field="*{patronymic}" name="patronymic">
+        </div>
+        <div class="form-group mb-3">
+          <label for="grade">Grade</label>
+          <input type="text" class="form-control" id="grade" placeholder="Junior" th:field="*{grade}" name="grade">
+          <p th:if="${#fields.hasErrors('grade')}" class="text-danger" th:errors="*{grade}"></p>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Implementer</button>
+      </form>
+    </div>
+  </section>
+</main>
+</body>
+</html>
