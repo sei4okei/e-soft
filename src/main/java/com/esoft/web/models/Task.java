@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +23,7 @@ public class Task {
     private Long id;
     private String name;
     private String description;
+    @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
     private LocalDateTime deadline;
     private int complexity;
     private int runtime;

@@ -87,4 +87,12 @@ public class TaskController {
         model.addAttribute("tasks", tasks);
         return "tasks-list";
     }
+
+    @GetMapping("/task/{taskId}")
+    public String detailTask(@PathVariable("taskId") Long taskId,
+                             Model model) {
+        TaskDto task = taskService.findTaskById(taskId);
+        model.addAttribute("task", task);
+        return "tasks-detail";
+    }
 }
