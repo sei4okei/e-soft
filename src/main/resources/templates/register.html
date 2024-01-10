@@ -9,6 +9,9 @@
     <!-- Page Content-->
     <section class="py-5">
         <div class="container">
+            <div th:if="${param.fail}" class="alert alert-danger">
+                Username or email already exists.
+            </div>
             <form role="form" method="post" th:action="@{/register/save}" th:object="${user}">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -27,6 +30,7 @@
                     <input type="password" class="form-control" id="password" placeholder="Alexandrovich" th:field="*{password}" name="password">
                     <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
                 </div>
+                <button type="submit" th:href="@{/login}" class="btn btn-dark">Already have an account?</button>
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
         </div>

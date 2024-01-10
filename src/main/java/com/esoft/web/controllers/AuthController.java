@@ -31,16 +31,18 @@ public class AuthController {
                                BindingResult result,
                                Model model) {
         UserEntitiy existingUserEmail = userService.findByEmail(user.getEmail());
-        UserEntitiy existingUsername = userService.findByUsername(user.getUsername());
-
         if (existingUserEmail != null
                 && existingUserEmail.getEmail() != null
                 && !existingUserEmail.getEmail().isEmpty()) {
-            result.rejectValue("username", "", "There is already a user with this email/username");
-        } else if (existingUsername != null
+            return "redirect:/register?fail";
+        }
+
+        UserEntitiy existingUsername = userService.findByUsername(user.getUsername());
+
+        if (existingUsername != null
                 && existingUsername.getUsername() != null
                 && !existingUsername.getUsername().isEmpty()) {
-            result.rejectValue("username", "", "There is already a user with this email/username");
+            return "redirect:/register?fail";
         }
 
         if (result.hasErrors()) {
@@ -51,5 +53,10 @@ public class AuthController {
         userService.saveUser(user);
 
         return "redirect:/implementer?success";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
 }

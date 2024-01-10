@@ -16,13 +16,6 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Welcome</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                        <li><a class="dropdown-item" th:href="@{/register}">Register</a></li>
-                        <li><a class="dropdown-item" th:href="@{/login}">Login</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownImplmenter" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Implementer</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
                         <li><a class="dropdown-item" th:href="@{/implementer}">Implementers</a></li>
@@ -35,6 +28,9 @@
                         <li><a class="dropdown-item" th:href="@{/task}">Tasks</a></li>
                     </ul>
                 </li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/register}">Register</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
             </ul>
         </div>
     </div>
