@@ -2,7 +2,9 @@ package com.esoft.web.mapper;
 
 import com.esoft.web.dto.ImplementerDto;
 import com.esoft.web.models.Implementer;
+import com.esoft.web.models.Task;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class ImplementerMapper {

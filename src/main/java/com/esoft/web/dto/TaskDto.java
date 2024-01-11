@@ -2,6 +2,7 @@ package com.esoft.web.dto;
 
 import com.esoft.web.enums.TaskType;
 import com.esoft.web.models.Implementer;
+import com.esoft.web.models.UserEntitiy;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -33,5 +34,6 @@ public class TaskDto {
     private TaskType type;
     @CreationTimestamp
     private LocalDateTime createdOn;
+    private UserEntitiy createdBy;
     private Implementer implementer;
 }

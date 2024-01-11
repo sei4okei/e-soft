@@ -3,13 +3,16 @@ package com.esoft.web.services.impl;
 import com.esoft.web.dto.ImplementerDto;
 import com.esoft.web.mapper.ImplementerMapper;
 import com.esoft.web.models.Implementer;
+import com.esoft.web.models.UserEntitiy;
 import com.esoft.web.repository.ImplementerRepository;
+import com.esoft.web.repository.UserRepository;
+import com.esoft.web.security.SecurityUtil;
 import com.esoft.web.services.ImplementerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.esoft.web.mapper.ImplementerMapper.mapToImplementer;
@@ -20,7 +23,7 @@ public class ImplementerServiceImpl implements ImplementerService {
     private ImplementerRepository implementerRepository;
 
     @Autowired
-    public ImplementerServiceImpl(ImplementerRepository implementerRepository) {
+    public ImplementerServiceImpl(ImplementerRepository implementerRepository, UserRepository userRepository) {
         this.implementerRepository = implementerRepository;
     }
 
@@ -32,6 +35,7 @@ public class ImplementerServiceImpl implements ImplementerService {
 
     @Override
     public Implementer saveImplementer(ImplementerDto implementerDto) {
+        implementerDto.setTasks(new ArrayList<>());
         Implementer implementer = mapToImplementer(implementerDto);
         return implementerRepository.save(implementer);
     }
