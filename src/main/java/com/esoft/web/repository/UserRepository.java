@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<UserEntitiy, Long> {
     UserEntitiy findByEmail(String email);
     UserEntitiy findByUsername(String username);
+    UserEntitiy findFirsByUsername(String username);
 }
