@@ -3,6 +3,9 @@ package com.esoft.web.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,13 +34,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                                .anyRequest().permitAll()
-
-                        /*.requestMatchers("/implementer/**", "/task/**", "/login?logout")
-                        .hasRole("USER")
                         .requestMatchers("/login", "/register", "/implementer","/register/**", "/css/**", "/js/**")
-                        .permitAll()*/
+                        .permitAll()
+                        .anyRequest().authenticated()
                 )
+                .authenticationProvider(authenticationProvider())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(form -> form
                     .loginPage("/login")
@@ -54,7 +55,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    @Bean
+    public AuthenticationProvider authenticationProvider() throws Exception {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setUserDetailsService(userDetailsService);
+        return authProvider;
     }
 }
