@@ -23,13 +23,15 @@
                     <p th:text="|Deadline: ${task.deadline}|" class="text-black-50 mb-5"></p>
                     <p th:text="|Type: ${task.type}|" class="text-black-50 mb-5"></p>
                 </div>
-                <a class="btn btn-primary" th:href="@{/task/{taskId}/edit(taskId = ${task.id})}">Edit</a>
-                <form role="form"
-                      method="post"
-                      th:action="@{/task/{taskId}/delete(taskId = ${task.id})}"
-                >
-                    <button class="btn btn-danger" type="submit">Delete</button>
-                </form>
+                <div th:if="${user.id} == ${task.createdBy.id}">
+                    <a class="btn btn-primary" th:href="@{/task/{taskId}/edit(taskId = ${task.id})}">Edit</a>
+                    <form role="form"
+                          method="post"
+                          th:action="@{/task/{taskId}/delete(taskId = ${task.id})}"
+                    >
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>

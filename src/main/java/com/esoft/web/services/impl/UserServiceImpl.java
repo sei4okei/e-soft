@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(RegistrationDto registrationDto) {
-        Role role = roleRepository.findByName("USER");
+        Role role = roleRepository.findByName("MANAGER");
         UserEntitiy user = UserEntitiy.builder()
                 .email(registrationDto.getEmail())
                 .password(passwordEncoder.encode(registrationDto.getPassword()))

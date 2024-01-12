@@ -25,13 +25,15 @@
                         <a th:text="|${task.name} ${task.complexity}|" class="h3 fw-bolder text-decoration-none link-dark stretched-link" th:href="@{/task/{taskId}(taskId = ${task.id})}">Project name</a>
                         <p th:text="${task.description}" class="text-black-50"></p>
                     </div>
-                    <a class="btn btn-primary" th:href="@{/task/{taskId}/edit(taskId = ${task.id})}">Edit</a>
-                    <form role="form"
-                          method="post"
-                          th:action="@{/task/{taskId}/delete(taskId = ${task.id})}"
-                    >
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    <div th:if="${user.id} == ${task.createdBy.id}">
+                        <a class="btn btn-primary" th:href="@{/task/{taskId}/edit(taskId = ${task.id})}">Edit</a>
+                        <form role="form"
+                              method="post"
+                              th:action="@{/task/{taskId}/delete(taskId = ${task.id})}"
+                        >
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
