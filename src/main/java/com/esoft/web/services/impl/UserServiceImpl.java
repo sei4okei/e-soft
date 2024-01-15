@@ -27,12 +27,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(RegistrationDto registrationDto) {
-        Role role = roleRepository.findByName("MANAGER");
         UserEntitiy user = UserEntitiy.builder()
                 .email(registrationDto.getEmail())
                 .password(passwordEncoder.encode(registrationDto.getPassword()))
                 .username(registrationDto.getUsername())
-                .roles(Arrays.asList(role))
+                .roles(Arrays.asList(roleRepository.findByName("MANAGER")))
                 .build();
         userRepository.save(user);
     }

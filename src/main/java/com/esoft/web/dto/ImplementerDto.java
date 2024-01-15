@@ -19,4 +19,5 @@ public class ImplementerDto {
     @NotEmpty(message = "Implementer grade should not be empty")
     private String grade;
     private List<TaskDto> tasks;
+    private RegistrationDto user;
 }

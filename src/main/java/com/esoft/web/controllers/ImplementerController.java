@@ -2,6 +2,7 @@ package com.esoft.web.controllers;
 
 import com.esoft.web.dto.ImplementerDto;
 import com.esoft.web.models.Implementer;
+import com.esoft.web.models.UserEntitiy;
 import com.esoft.web.services.ImplementerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class ImplementerController {
         model.addAttribute("implementer", implemeneter);
         return "implementers-create";
     }
-
+    // TO-DO add implementer creation with linked account
     @PostMapping("implementer/new")
     @PreAuthorize("hasAuthority('MANAGER')")
     public String saveImplementer(@Valid @ModelAttribute("implementer") ImplementerDto implementerDto,

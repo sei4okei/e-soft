@@ -31,6 +31,21 @@
           <input type="text" class="form-control" id="grade" placeholder="Junior" th:field="*{grade}" name="grade">
           <p th:if="${#fields.hasErrors('grade')}" class="text-danger" th:errors="*{grade}"></p>
         </div>
+        <div class="form-group mb-3">
+          <label for="user.username">Username</label>
+          <input type="text" class="form-control" id="user.username" placeholder="Username" th:field="*{user.username}" name="user.username">
+          <p th:if="${#fields.hasErrors('user.username')}" class="text-danger" th:errors="*{user.username}"></p>
+        </div>
+        <div class="form-group mb-3">
+          <label for="user.email">Grade</label>
+          <input type="text" class="form-control" id="user.email" placeholder="E-mail" th:field="*{user.email}" name="user.email">
+          <p th:if="${#fields.hasErrors('user.email')}" class="text-danger" th:errors="*{user.email}"></p>
+        </div>
+        <div class="form-group mb-3">
+          <label for="user.password">Grade</label>
+          <input type="password" class="form-control" id="user.password" placeholder="Password" th:field="*{user.password}" name="user.password">
+          <p th:if="${#fields.hasErrors('user.password')}" class="text-danger" th:errors="*{user.password}"></p>
+        </div>
         <button type="submit" class="btn btn-primary">Create Implementer</button>
       </form>
     </div>
