@@ -28,4 +28,7 @@ public class Implementer {
 
     @OneToMany(mappedBy = "implementer", cascade = CascadeType.REMOVE)
     private List<Task> tasks = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntitiy user;
 }

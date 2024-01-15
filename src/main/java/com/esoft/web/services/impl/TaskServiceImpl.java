@@ -40,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void createTask(Long implementerId, TaskDto taskDto) {
-        String username = SecurityUtil.getSessionUser();
+        String username = SecurityUtil.getSessionUsername();
         UserEntitiy user = userRepository.findByUsername(username);
         Task task = mapToTask(taskDto);
         task.setCreatedBy(user);
@@ -57,7 +57,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void updateTask(TaskDto taskDto) {
-        String username = SecurityUtil.getSessionUser();
+        String username = SecurityUtil.getSessionUsername();
         UserEntitiy user = userRepository.findByUsername(username);
         Task task = mapToTask(taskDto);
         task.setCreatedBy(user);

@@ -28,7 +28,7 @@ public class TaskController {
     public String taskList(Model model) {
         UserEntitiy user = new UserEntitiy();
         List<TaskDto> tasks = taskService.findAllTasks();
-        String username = SecurityUtil.getSessionUser();
+        String username = SecurityUtil.getSessionUsername();
         if (username != null) {
             user = userService.findByUsername(username);
         }
@@ -108,7 +108,7 @@ public class TaskController {
                              Model model) {
         UserEntitiy user = new UserEntitiy();
         TaskDto task = taskService.findTaskById(taskId);
-        String username = SecurityUtil.getSessionUser();
+        String username = SecurityUtil.getSessionUsername();
         if (username != null) {
             user = userService.findByUsername(username);
         }
