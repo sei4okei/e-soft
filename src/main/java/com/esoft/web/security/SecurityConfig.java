@@ -36,6 +36,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/register","/register/**", "/css/**", "/js/**")
                         .permitAll()
+                        .requestMatchers("/implementer/**", "task/{taskId}/edit", "/task/{implementerId}/new", "/task/{taskId}/delete")
+                        .hasAuthority("MANAGER")
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
