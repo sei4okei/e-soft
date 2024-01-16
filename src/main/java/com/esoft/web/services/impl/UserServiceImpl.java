@@ -26,12 +26,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(RegistrationDto registrationDto) {
+    public void saveManager(RegistrationDto registrationDto) {
         UserEntitiy user = UserEntitiy.builder()
                 .email(registrationDto.getEmail())
                 .password(passwordEncoder.encode(registrationDto.getPassword()))
                 .username(registrationDto.getUsername())
                 .roles(Arrays.asList(roleRepository.findByName("MANAGER")))
+                .build();
+        userRepository.save(user);
+    }
+
+    @Override
+    public void saveImplementer(RegistrationDto registrationDto) {
+        UserEntitiy user = UserEntitiy.builder()
+                .email(registrationDto.getEmail())
+                .password(passwordEncoder.encode(registrationDto.getPassword()))
+                .username(registrationDto.getUsername())
+                .roles(Arrays.asList(roleRepository.findByName("IMPLEMENTER")))
                 .build();
         userRepository.save(user);
     }

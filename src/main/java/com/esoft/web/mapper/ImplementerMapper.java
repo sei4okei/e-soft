@@ -1,16 +1,24 @@
 package com.esoft.web.mapper;
 
 import com.esoft.web.dto.ImplementerDto;
+import com.esoft.web.dto.RegistrationDto;
 import com.esoft.web.models.Implementer;
-import com.esoft.web.models.Task;
+import com.esoft.web.models.UserEntitiy;
+import com.esoft.web.services.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-import static com.esoft.web.mapper.UserMapper.mapToUser;
-import static com.esoft.web.mapper.UserMapper.mapToUserDto;
-
+@Component
 public class ImplementerMapper {
+    private static UserService userService;
+
+    @Autowired
+    public ImplementerMapper(UserService userService) {
+        this.userService = userService;
+    }
+
     public static Implementer mapToImplementer(ImplementerDto implementerDto) {
         Implementer implementer = Implementer.builder()
                 .id(implementerDto.getId())
@@ -19,7 +27,7 @@ public class ImplementerMapper {
                 .lastName(implementerDto.getLastName())
                 .patronymic(implementerDto.getPatronymic())
                 .tasks(implementerDto.getTasks().stream().map(TaskMapper::mapToTask).collect(Collectors.toList()))
-                .user(mapToUser(implementerDto.getUser()))
+                .user(userService.findByUsername(implementerDto.getUser().getUsername()))
                 .build();
         return  implementer;
     }
@@ -32,7 +40,11 @@ public class ImplementerMapper {
                 .lastName(implementer.getLastName())
                 .patronymic(implementer.getPatronymic())
                 .tasks(implementer.getTasks().stream().map(TaskMapper::mapToTaskDto).collect(Collectors.toList()))
-                .user(mapToUserDto(implementer.getUser()))
+                .user(RegistrationDto.builder()
+                        .email(implementer.getUser().getEmail())
+                        .password(implementer.getUser().getPassword())
+                        .username(implementer.getUser().getUsername())
+                        .build())
                 .build();
         return  implementerDto;
     }

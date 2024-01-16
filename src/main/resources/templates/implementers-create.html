@@ -8,6 +8,9 @@
 <main layout:fragment="body" class="flex-shrink-0">
   <!-- Page Content-->
   <section class="py-5">
+    <div th:if="${param.fail}" class="alert alert-danger">
+      Username or email already exists.
+    </div>
     <div class="container">
       <form role="form" method="post" th:action="@{/implementer/new}" th:object="${implementer}">
         <div class="form-row">
