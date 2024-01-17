@@ -26,25 +26,60 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveManager(RegistrationDto registrationDto) {
+    public boolean saveManager(RegistrationDto registrationDto) {
+        if (!checkRegistration(registrationDto)) return false;
+
         UserEntitiy user = UserEntitiy.builder()
                 .email(registrationDto.getEmail())
                 .password(passwordEncoder.encode(registrationDto.getPassword()))
                 .username(registrationDto.getUsername())
                 .roles(Arrays.asList(roleRepository.findByName("MANAGER")))
                 .build();
-        userRepository.save(user);
+
+        try {
+            userRepository.save(user);
+            return true;
+        }
+        catch (Exception ex) {
+            return false;
+        }
     }
 
     @Override
-    public void saveImplementer(RegistrationDto registrationDto) {
+    public boolean saveImplementer(RegistrationDto registrationDto) {
+        if (!checkRegistration(registrationDto)) return false;
+
         UserEntitiy user = UserEntitiy.builder()
                 .email(registrationDto.getEmail())
                 .password(passwordEncoder.encode(registrationDto.getPassword()))
                 .username(registrationDto.getUsername())
                 .roles(Arrays.asList(roleRepository.findByName("IMPLEMENTER")))
                 .build();
-        userRepository.save(user);
+
+        try {
+            userRepository.save(user);
+            return true;
+        }
+        catch (Exception ex) {
+            return false;
+        }
+    }
+
+    private boolean checkRegistration(RegistrationDto registrationDto) {
+        UserEntitiy existingUserEmail = findByEmail(registrationDto.getEmail());
+        if (existingUserEmail != null
+                && existingUserEmail.getEmail() != null
+                && !existingUserEmail.getEmail().isEmpty()) {
+            return false;
+        }
+
+        UserEntitiy existingUsername = findByUsername(registrationDto.getUsername());
+        if (existingUsername != null
+                && existingUsername.getUsername() != null
+                && !existingUsername.getUsername().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     @Override

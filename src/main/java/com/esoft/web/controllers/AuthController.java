@@ -30,27 +30,17 @@ public class AuthController {
     public String registerUser(@Valid @ModelAttribute("user") RegistrationDto user,
                                BindingResult result,
                                Model model) {
-        UserEntitiy existingUserEmail = userService.findByEmail(user.getEmail());
-        if (existingUserEmail != null
-                && existingUserEmail.getEmail() != null
-                && !existingUserEmail.getEmail().isEmpty()) {
-            return "redirect:/register?fail";
-        }
-
-        UserEntitiy existingUsername = userService.findByUsername(user.getUsername());
-
-        if (existingUsername != null
-                && existingUsername.getUsername() != null
-                && !existingUsername.getUsername().isEmpty()) {
-            return "redirect:/register?fail";
-        }
-
         if (result.hasErrors()) {
             model.addAttribute("user", user);
             return "/register";
         }
 
-        userService.saveManager(user);
+        boolean saveResult = userService.saveManager(user);
+
+        if (!saveResult) {
+            model.addAttribute("user", user);
+            return "/register";
+        }
 
         return "redirect:/implementer?success";
     }

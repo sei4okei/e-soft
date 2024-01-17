@@ -48,38 +48,28 @@ public class ImplementerController {
         return "implementers-list";
     }
 
-    @GetMapping("implementer/new")
+    @GetMapping("/implementer/new")
     public String createImplementerForm(Model model) {
         Implementer implemeneter = new Implementer();
         model.addAttribute("implementer", implemeneter);
         return "implementers-create";
     }
     // TO-DO all this logic put in user service
-    @PostMapping("implementer/new")
+    @PostMapping("/implementer/new")
     public String saveImplementer(@Valid @ModelAttribute("implementer") ImplementerDto implementerDto,
                                   BindingResult result,
                                   Model model) {
-        UserEntitiy existingUserEmail = userService.findByEmail(implementerDto.getUser().getEmail());
-        if (existingUserEmail != null
-                && existingUserEmail.getEmail() != null
-                && !existingUserEmail.getEmail().isEmpty()) {
-            return "redirect:/implementer/new?fail";
-        }
-
-        UserEntitiy existingUsername = userService.findByUsername(implementerDto.getUser().getUsername());
-
-        if (existingUsername != null
-                && existingUsername.getUsername() != null
-                && !existingUsername.getUsername().isEmpty()) {
-            return "redirect:/implementer/new?fail";
-        }
-
         if (result.hasErrors()) {
             model.addAttribute("implementer", implementerDto);
             return "implementers-create";
         }
 
-        userService.saveImplementer(implementerDto.getUser());
+        boolean saveResult = userService.saveImplementer(implementerDto.getUser());
+
+        if (!saveResult) {
+            return "redirect:/implementer/new?fail";
+        }
+
         implementerService.saveImplementer(implementerDto);
         return "redirect:/implementer";
     }
