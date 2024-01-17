@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,4 +19,5 @@ public class ImplementerDto {
     @NotEmpty(message = "Implementer grade should not be empty")
     private String grade;
     private List<TaskDto> tasks;
+    private RegistrationDto user;
 }

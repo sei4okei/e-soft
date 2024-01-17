@@ -1,0 +1,36 @@
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Registration</title>
+</head>
+<body class="d-flex flex-column h-100">
+<main layout:fragment="body" class="flex-shrink-0">
+  <!-- Page Content-->
+  <section class="py-5">
+    <div class="container">
+      <div th:if="${param.error}" class="alert-danger">
+        Invalid username or password.
+      </div>
+      <div th:if="${param.logout}" class="alert alert-primary">
+        You have been logged out.
+      </div>
+      <form role="form" method="post" th:action="@{/login}">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Alexandrov" name="username">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Alexandrovich" name="password">
+        </div>
+        <button type="submit" th:href="@{/register}" class="btn btn-dark">Don't have an account already?</button>
+        <button type="submit" value="Log in" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </section>
+</main>
+</body>
+</html>

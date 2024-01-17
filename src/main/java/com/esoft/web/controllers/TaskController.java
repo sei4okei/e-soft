@@ -1,34 +1,45 @@
 package com.esoft.web.controllers;
 
 import com.esoft.web.dto.TaskDto;
-import com.esoft.web.models.Implementer;
-import com.esoft.web.models.Task;
+import com.esoft.web.models.UserEntitiy;
+import com.esoft.web.security.SecurityUtil;
 import com.esoft.web.services.TaskService;
+import com.esoft.web.services.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.Binding;
 import java.util.List;
 
 @Controller
 public class TaskController {
     private TaskService taskService;
+    private UserService userService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, UserService userService) {
         this.taskService = taskService;
+        this.userService = userService;
     }
 
     @GetMapping("/task")
     public String taskList(Model model) {
+        UserEntitiy user = new UserEntitiy();
         List<TaskDto> tasks = taskService.findAllTasks();
+        String username = SecurityUtil.getSessionUsername();
+        if (username != null) {
+            user = userService.findByUsername(username);
+        }
+        model.addAttribute("user", user);
         model.addAttribute("tasks", tasks);
         return "tasks-list";
     }
 
+
     @GetMapping("/task/{implementerId}/new")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public String createTaskForm(@PathVariable("implementerId") Long implementerId,
                                  Model model) {
         TaskDto task = new TaskDto();
@@ -37,7 +48,9 @@ public class TaskController {
         return "tasks-create";
     }
 
+
     @PostMapping("/task/{implementerId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public String createTask(@PathVariable("implementerId") Long implementerId,
                              @Valid @ModelAttribute("task") TaskDto taskDto,
                              BindingResult result,
@@ -50,7 +63,9 @@ public class TaskController {
         return "redirect:/implementer/" + implementerId;
     }
 
+
     @PostMapping("/task/{taskId}/delete")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     public String deleteTask(@PathVariable("taskId") Long taskId) {
         taskService.deleteTaskById(taskId);
         return "redirect:/task";
@@ -91,7 +106,13 @@ public class TaskController {
     @GetMapping("/task/{taskId}")
     public String detailTask(@PathVariable("taskId") Long taskId,
                              Model model) {
+        UserEntitiy user = new UserEntitiy();
         TaskDto task = taskService.findTaskById(taskId);
+        String username = SecurityUtil.getSessionUsername();
+        if (username != null) {
+            user = userService.findByUsername(username);
+        }
+        model.addAttribute("user", user);
         model.addAttribute("task", task);
         return "tasks-detail";
     }

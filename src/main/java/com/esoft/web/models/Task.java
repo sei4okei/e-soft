@@ -30,6 +30,9 @@ public class Task {
     private TaskType type;
     @CreationTimestamp
     private LocalDateTime createdOn;
+    @ManyToOne
+    @JoinColumn(name = "created_by", nullable = false)
+    private UserEntitiy createdBy;
 
     @ManyToOne
     @JoinColumn(name = "implementer_id", nullable = false)

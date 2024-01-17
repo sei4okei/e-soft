@@ -12,7 +12,7 @@
             <form role="form" method="post" th:action="@{/task/{implementerId}(implementerId = ${implementerId})}" th:object="${task}">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="name">Name</label>
+                        <label for="name">Title</label>
                         <input type="text" class="form-control" id="name" placeholder="Title" th:field="*{name}" name="name">
                         <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
                     </div>
@@ -41,7 +41,7 @@
                     </select>
                     <p th:if="${#fields.hasErrors('type')}" class="text-danger" th:errors="*{type}"></p>
                 </div>
-                <button type="submit" class="btn btn-primary">Create Implementer</button>
+                <button type="submit" class="btn btn-primary">Create Task</button>
             </form>
         </div>
     </section>

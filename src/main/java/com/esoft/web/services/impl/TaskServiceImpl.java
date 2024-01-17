@@ -4,8 +4,11 @@ import com.esoft.web.dto.TaskDto;
 import com.esoft.web.mapper.TaskMapper;
 import com.esoft.web.models.Implementer;
 import com.esoft.web.models.Task;
+import com.esoft.web.models.UserEntitiy;
 import com.esoft.web.repository.ImplementerRepository;
 import com.esoft.web.repository.TaskRepository;
+import com.esoft.web.repository.UserRepository;
+import com.esoft.web.security.SecurityUtil;
 import com.esoft.web.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +23,13 @@ import static com.esoft.web.mapper.TaskMapper.mapToTaskDto;
 public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
     private ImplementerRepository implementerRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository, ImplementerRepository implementerRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, ImplementerRepository implementerRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
         this.implementerRepository = implementerRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -35,7 +40,10 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void createTask(Long implementerId, TaskDto taskDto) {
+        String username = SecurityUtil.getSessionUsername();
+        UserEntitiy user = userRepository.findByUsername(username);
         Task task = mapToTask(taskDto);
+        task.setCreatedBy(user);
         Implementer implementer = implementerRepository.findById(implementerId).get();
         task.setImplementer(implementer);
         taskRepository.save(task);
@@ -49,7 +57,10 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void updateTask(TaskDto taskDto) {
+        String username = SecurityUtil.getSessionUsername();
+        UserEntitiy user = userRepository.findByUsername(username);
         Task task = mapToTask(taskDto);
+        task.setCreatedBy(user);
         taskRepository.save(task);
     }
 

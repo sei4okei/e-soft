@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +28,10 @@ public class Implementer {
     private String patronymic;
     private String grade;
 
-    @OneToMany(mappedBy = "implementer", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "implementer", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntitiy user;
 }

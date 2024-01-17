@@ -2,7 +2,9 @@ package com.esoft.web.controllers;
 
 import com.esoft.web.dto.ImplementerDto;
 import com.esoft.web.models.Implementer;
+import com.esoft.web.models.UserEntitiy;
 import com.esoft.web.services.ImplementerService;
+import com.esoft.web.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @Controller
 public class ImplementerController {
+    private UserService userService;
     private ImplementerService implementerService;
     @Autowired
-    public ImplementerController(ImplementerService implementerService) {
+    public ImplementerController(UserService userService, ImplementerService implementerService) {
+        this.userService = userService;
         this.implementerService = implementerService;
     }
 
@@ -43,14 +48,14 @@ public class ImplementerController {
         return "implementers-list";
     }
 
-    @GetMapping("implementer/new")
+    @GetMapping("/implementer/new")
     public String createImplementerForm(Model model) {
         Implementer implemeneter = new Implementer();
         model.addAttribute("implementer", implemeneter);
         return "implementers-create";
     }
-
-    @PostMapping("implementer/new")
+    // TO-DO all this logic put in user service
+    @PostMapping("/implementer/new")
     public String saveImplementer(@Valid @ModelAttribute("implementer") ImplementerDto implementerDto,
                                   BindingResult result,
                                   Model model) {
@@ -58,6 +63,13 @@ public class ImplementerController {
             model.addAttribute("implementer", implementerDto);
             return "implementers-create";
         }
+
+        boolean saveResult = userService.saveImplementer(implementerDto.getUser());
+
+        if (!saveResult) {
+            return "redirect:/implementer/new?fail";
+        }
+
         implementerService.saveImplementer(implementerDto);
         return "redirect:/implementer";
     }

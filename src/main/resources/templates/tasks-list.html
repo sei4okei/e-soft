@@ -9,6 +9,9 @@
     <!-- Page Content-->
     <section class="py-5">
         <div class="container px-5 my-5">
+            <div th:if="${param.success}" class="alert alert-success">
+                You are registered successfully!
+            </div>
             <div class="text-center mb-5">
                 <h1 class="fw-bolder">Tasks</h1>
                 <p class="lead fw-normal text-muted mb-0">Company portfolio</p>
@@ -25,13 +28,15 @@
                         <a th:text="|${task.name} ${task.complexity}|" class="h3 fw-bolder text-decoration-none link-dark stretched-link" th:href="@{/task/{taskId}(taskId = ${task.id})}">Project name</a>
                         <p th:text="${task.description}" class="text-black-50"></p>
                     </div>
-                    <a class="btn btn-primary" th:href="@{/task/{taskId}/edit(taskId = ${task.id})}">Edit</a>
-                    <form role="form"
-                          method="post"
-                          th:action="@{/task/{taskId}/delete(taskId = ${task.id})}"
-                    >
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    <div th:if="${user.id} == ${task.createdBy.id}">
+                        <a class="btn btn-primary" th:href="@{/task/{taskId}/edit(taskId = ${task.id})}">Edit</a>
+                        <form role="form"
+                              method="post"
+                              th:action="@{/task/{taskId}/delete(taskId = ${task.id})}"
+                        >
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

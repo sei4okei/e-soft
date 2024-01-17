@@ -8,18 +8,21 @@
 <main layout:fragment="body" class="flex-shrink-0">
   <!-- Page Content-->
   <section class="py-5">
+    <div th:if="${param.fail}" class="alert alert-danger">
+      Username or email already exists.
+    </div>
     <div class="container">
       <form role="form" method="post" th:action="@{/implementer/new}" th:object="${implementer}">
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="Alexandrov" th:field="*{firstName}" name="firstName">
-            <p th:if="${#fields.hasErrors('firstName')}" class="text-danger" th:errors="*{firstName}"></p>
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Alexandrov" th:field="*{lastName}" name="lastName">
+            <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
           </div>
           <div class="form-group col-md-6">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="Alex" th:field="*{lastName}" name="lastName">
-            <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Alex" th:field="*{firstName}" name="firstName">
+            <p th:if="${#fields.hasErrors('firstName')}" class="text-danger" th:errors="*{firstName}"></p>
           </div>
         </div>
         <div class="form-group">
@@ -30,6 +33,22 @@
           <label for="grade">Grade</label>
           <input type="text" class="form-control" id="grade" placeholder="Junior" th:field="*{grade}" name="grade">
           <p th:if="${#fields.hasErrors('grade')}" class="text-danger" th:errors="*{grade}"></p>
+        </div>
+        <label class="mb-3">Implementer account:</label>
+        <div class="form-group mb-3">
+          <label for="user.username">Username</label>
+          <input type="text" class="form-control" id="user.username" placeholder="Username" th:field="*{user.username}" name="user.username">
+          <p th:if="${#fields.hasErrors('user.username')}" class="text-danger" th:errors="*{user.username}"></p>
+        </div>
+        <div class="form-group mb-3">
+          <label for="user.email">E-mail</label>
+          <input type="text" class="form-control" id="user.email" placeholder="E-mail" th:field="*{user.email}" name="user.email">
+          <p th:if="${#fields.hasErrors('user.email')}" class="text-danger" th:errors="*{user.email}"></p>
+        </div>
+        <div class="form-group mb-3">
+          <label for="user.password">Password</label>
+          <input type="password" class="form-control" id="user.password" placeholder="Password" th:field="*{user.password}" name="user.password">
+          <p th:if="${#fields.hasErrors('user.password')}" class="text-danger" th:errors="*{user.password}"></p>
         </div>
         <button type="submit" class="btn btn-primary">Create Implementer</button>
       </form>
