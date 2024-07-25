@@ -1,2 +1,2 @@
 # e-soft
-E-soft Application
+Java Application
